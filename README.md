@@ -3,9 +3,9 @@ This is a painfully dumb script that all it does is launches a `screen` session 
 
 ## Requirements
   Most operating systems come with bash but you may have to install `curl`.  If you can't do this lord help you why are you messing with a linux command line go read some stuff.  Screen is automatically installed in most `debian` and `centos` linux versions however you may need to install them so I'm including them in this list regardless.  I might upgrade this to an actual package at some point and put it on GitHub for some reason publicly.
-* curl
-* bash
-* screen
+* curl ( Required )
+* bash ( Required )
+* tmux ( If you don't have it we can try and install it. )
 * two separate terminal/putty sessions open or accessible to you.
 
 ## Usage
