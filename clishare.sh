@@ -70,11 +70,7 @@ case "${unameOut}" in
   ;;
 esac
 
-if [[ ! $SYSTEM_OS == [Linux|Mac] ]]; then
-  printf "Your operating system is not supported by this script."
-  die
-fi
-
+## Final prep pre execution.
 wget https://raw.githubusercontent.com/chamunks/clishare/master/gotty-run.sh -O /tmp/gotty-run.sh
 tar -xf /tmp/gotty.tar.gz -C /tmp/
 chmod +x /tmp/gotty-run.sh
