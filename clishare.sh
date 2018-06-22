@@ -19,6 +19,12 @@ function die () {
     exit 1
 }
 
+## Guarantee we're using bash in case theres something weird happening.
+if [[ ! $SHELL == "/bin/bash" ]]; then
+  printf "Unfortunately this shell only supports bash."
+  die
+fi
+
 ## Detect Operating System if Linux or Mac
 unameOut="$(uname -s)"
 case "${unameOut}" in
