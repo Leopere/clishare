@@ -10,6 +10,7 @@ function clishare_cleanup () {
   ## We could put in a check here but its better to run latest anyways.
   rm /tmp/gott*
 }
+
 clishare_cleanup
 
 function die () {
@@ -20,7 +21,7 @@ function die () {
 }
 
 ## Guarantee we're using bash in case theres something weird happening.
-if [[ ! $SHELL == "/bin/bash" ]]; then
+if ! [[ $SHELL == "/bin/bash" ]]; then
   printf "Unfortunately this shell only supports bash."
   die
 fi
@@ -35,11 +36,11 @@ case "${unameOut}" in
     case $MACHINE_TYPE in
       64 )
       printf "detected 64 bit cpu, getting 64 bit gotty binary"
-      wget https://github.com/yudai/gotty/releases/download/v2.0.0-alpha.3/gotty_2.0.0-alpha.3_linux_amd64.tar.gz -O /tmp/gotty.tar.gz
+      curl https://github.com/yudai/gotty/releases/download/v2.0.0-alpha.3/gotty_2.0.0-alpha.3_linux_amd64.tar.gz > /tmp/gotty.tar.gz
       ;;
       32 )
       printf "detected 32 bit cpu, getting 32 bit gotty binary"
-      wget https://github.com/yudai/gotty/releases/download/v2.0.0-alpha.3/gotty_2.0.0-alpha.3_linux_386.tar.gz -O /tmp/gotty.tar.gz
+      curl https://github.com/yudai/gotty/releases/download/v2.0.0-alpha.3/gotty_2.0.0-alpha.3_linux_386.tar.gz > /tmp/gotty.tar.gz
       ;;
     esac
   ;;
@@ -50,11 +51,11 @@ case "${unameOut}" in
     case $MACHINE_TYPE in
       64 )
       printf "detected 64 bit cpu, getting 64 bit gotty binary"
-      wget https://github.com/yudai/gotty/releases/download/v2.0.0-alpha.3/gotty_2.0.0-alpha.3_darwin_amd64.tar.gz -O /tmp/gotty.tar.gz
+      curl https://github.com/yudai/gotty/releases/download/v2.0.0-alpha.3/gotty_2.0.0-alpha.3_darwin_amd64.tar.gz > /tmp/gotty.tar.gz
       ;;
       32 )
       printf "detected 32 bit cpu, getting 32 bit gotty binary"
-      wget https://github.com/yudai/gotty/releases/download/v2.0.0-alpha.3/gotty_2.0.0-alpha.3_darwin_amd64.tar.gz -O /tmp/gotty.tar.gz
+      curl https://github.com/yudai/gotty/releases/download/v2.0.0-alpha.3/gotty_2.0.0-alpha.3_darwin_amd64.tar.gz > /tmp/gotty.tar.gz
       ;;
     esac
   ;;
@@ -76,8 +77,14 @@ case "${unameOut}" in
   ;;
 esac
 
+if ! [[ -x "$(command -v tmux)" ]]; then
+  curl -s https://raw.githubusercontent.com/chamunks/clishare/master/tmux-add.sh > /tmp/tmux-add.sh
+  chmod +x /tmp/tmux-add.sh
+  /tmp/tmux-add.sh install
+fi
+
 ## Final prep pre execution.
-wget https://raw.githubusercontent.com/chamunks/clishare/master/gotty-run.sh -O /tmp/gotty-run.sh
+curl https://raw.githubusercontent.com/chamunks/clishare/master/gotty-run.sh > /tmp/gotty-run.sh
 tar -xf /tmp/gotty.tar.gz -C /tmp/
 chmod +x /tmp/gotty-run.sh
 chmod +x /tmp/gotty
@@ -95,3 +102,7 @@ read _
 printf 'cleaning up old screens.'
 ## This might clean up after itself if we're lucky.  I'm not being picky or precise here.
 clishare_cleanup
+
+if [[ -f /tmp/tmux-add.sh ]]; then
+  /tmp/tmux-add.sh uninstall
+fi
