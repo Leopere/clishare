@@ -75,7 +75,7 @@ if [[ ! $SYSTEM_OS == [Linux|Mac] ]]; then
   die
 fi
 
-wget https://URL TO LATEST GOTTY-RUN.sh eventually goes here. -O /tmp/gotty-run.sh
+wget https://raw.githubusercontent.com/chamunks/clishare/master/gotty-run.sh -O /tmp/gotty-run.sh
 tar -xf /tmp/gotty.tar.gz -C /tmp/
 chmod +x /tmp/gotty-run.sh
 chmod +x /tmp/gotty
