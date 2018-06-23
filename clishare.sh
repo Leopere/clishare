@@ -44,11 +44,11 @@ case "${unameOut}" in
     case $MACHINE_TYPE in
       64 )
       printf "detected 64 bit cpu, getting 64 bit gotty binary"
-      curl https://github.com/yudai/gotty/releases/download/v2.0.0-alpha.3/gotty_2.0.0-alpha.3_linux_amd64.tar.gz > /tmp/gotty.tar.gz
+      curl -L -o /tmp/gotty.tar.gz https://github.com/yudai/gotty/releases/download/v2.0.0-alpha.3/gotty_2.0.0-alpha.3_linux_amd64.tar.gz
       ;;
       32 )
       printf "detected 32 bit cpu, getting 32 bit gotty binary"
-      curl https://github.com/yudai/gotty/releases/download/v2.0.0-alpha.3/gotty_2.0.0-alpha.3_linux_386.tar.gz > /tmp/gotty.tar.gz
+      curl -L -o /tmp/gotty.tar.gz https://github.com/yudai/gotty/releases/download/v2.0.0-alpha.3/gotty_2.0.0-alpha.3_linux_386.tar.gz
       ;;
     esac
   ;;
@@ -59,11 +59,11 @@ case "${unameOut}" in
     case $MACHINE_TYPE in
       64 )
       printf "detected 64 bit cpu, getting 64 bit gotty binary"
-      curl https://github.com/yudai/gotty/releases/download/v2.0.0-alpha.3/gotty_2.0.0-alpha.3_darwin_amd64.tar.gz > /tmp/gotty.tar.gz
+      curl -L -o /tmp/gotty.tar.gz https://github.com/yudai/gotty/releases/download/v2.0.0-alpha.3/gotty_2.0.0-alpha.3_darwin_amd64.tar.gz
       ;;
       32 )
       printf "detected 32 bit cpu, getting 32 bit gotty binary"
-      curl https://github.com/yudai/gotty/releases/download/v2.0.0-alpha.3/gotty_2.0.0-alpha.3_darwin_amd64.tar.gz > /tmp/gotty.tar.gz
+      curl -L -o /tmp/gotty.tar.gz https://github.com/yudai/gotty/releases/download/v2.0.0-alpha.3/gotty_2.0.0-alpha.3_darwin_amd64.tar.gz
       ;;
     esac
   ;;
