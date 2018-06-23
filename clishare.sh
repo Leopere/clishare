@@ -29,7 +29,8 @@ printf 'removing any screens which might conflict before we run this.'
 clishare_cleanup
 
 ## Guarantee we're using bash in case theres something weird happening.
-if ! [[ $SHELL == "/bin/bash" ]]; then
+
+if [[ ! -n "$BASH" ]]; then
   die "Unfortunately this shell only supports bash."
 fi
 
@@ -89,13 +90,13 @@ chmod +x /tmp/gotty
 cd /tmp/
 
 ## Reading the user into whats happening.
-printf "This will run a process where you can share(view only) your terminal with a friend via their web browser."
-printf "You will need to run the command: screen -xr clishare"
-printf "From a separate terminal/putty window."
+echo "This will run a process where you can share(view only) your terminal with a friend via their web browser."
+echo "You will need to run the command: screen -xr clishare"
+echo "From a separate terminal/putty window."
 
 tmux new -A -D -d -s gotty /tmp/gotty-run.sh
 
-printf 'press [ENTER] to terminate clishare...'
+echo 'press [ENTER] to terminate clishare...'
 read _
 printf 'cleaning up old screens.'
 ## This might clean up after itself if we're lucky.  I'm not being picky or precise here.
