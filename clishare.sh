@@ -22,8 +22,7 @@ function die () {
 
 ## Guarantee we're using bash in case theres something weird happening.
 if ! [[ $SHELL == "/bin/bash" ]]; then
-  printf "Unfortunately this shell only supports bash."
-  die
+  die "Unfortunately this shell only supports bash."
 fi
 
 ## Detect Operating System if Linux or Mac
@@ -61,26 +60,24 @@ case "${unameOut}" in
   ;;
   CYGWIN* )
     SYSTEM_OS=Cygwin
-    printf "Cygwin is not supported sorry windows users."
-    die
+    die "Cygwin is not supported sorry windows users."
   ;;
   MINGW* )
     SYSTEM_OS=MinGw
-    printf "MinGw is not supported sorry."
-    die
+    die "MinGw is not supported sorry."
   ;;
   * )
     SYSTEM_OS="UNKNOWN:${unameOut}"
     printf "Unfortunately oprating system $SYSTEM_OS is not recognized."
-    printf "This script is airing on the side of safety and will not run."
-    die
+    die "This script is airing on the side of safety and will not run."
   ;;
 esac
 
 if ! [[ -x "$(command -v tmux)" ]]; then
-  curl -s https://raw.githubusercontent.com/chamunks/clishare/master/tmux-add.sh > /tmp/tmux-add.sh
-  chmod +x /tmp/tmux-add.sh
-  /tmp/tmux-add.sh install
+  die "Tmux is not installed please install tmux first and then re run this script."
+  # curl -s https://raw.githubusercontent.com/chamunks/clishare/master/tmux-add.sh > /tmp/tmux-add.sh
+  # chmod +x /tmp/tmux-add.sh
+  # /tmp/tmux-add.sh install
 fi
 
 ## Final prep pre execution.
