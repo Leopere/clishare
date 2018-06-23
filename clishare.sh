@@ -1,24 +1,31 @@
 #!/bin/bash
 ## This script has zero fanciness whatsoever so YMMV
 
-# Doing a bit of brutish nonsense here.
-printf 'removing any screens which might conflict before we run this.'
-
-function clishare_cleanup () {
-  tmux kill-session -t clishare
-  tmux kill-session -t gotty
-  ## We could put in a check here but its better to run latest anyways.
-  rm /tmp/gott*
-}
-
-clishare_cleanup
-
+## Add fancy die function
 function die () {
     local message=$1
     [ -z "$message" ] && message="Died"
     echo "${BASH_SOURCE[1]}: line ${BASH_LINENO[0]}: ${FUNCNAME[1]}: $message." >&2
     exit 1
 }
+
+## Check for tmux dependency.
+if ! [[ -x "$(command -v tmux)" ]]; then
+  die "Tmux is not installed please install tmux first and then re run this script."
+  # curl -s https://raw.githubusercontent.com/chamunks/clishare/master/tmux-add.sh > /tmp/tmux-add.sh
+  # chmod +x /tmp/tmux-add.sh
+  # /tmp/tmux-add.sh install
+fi
+
+# Doing a bit of brutish nonsense here.
+function clishare_cleanup () {
+  tmux kill-session -t clishare
+  tmux kill-session -t gotty
+  ## We could put in a check here but its better to run latest anyways.
+  rm /tmp/gott*
+}
+printf 'removing any screens which might conflict before we run this.'
+clishare_cleanup
 
 ## Guarantee we're using bash in case theres something weird happening.
 if ! [[ $SHELL == "/bin/bash" ]]; then
@@ -72,13 +79,6 @@ case "${unameOut}" in
     die "This script is airing on the side of safety and will not run."
   ;;
 esac
-
-if ! [[ -x "$(command -v tmux)" ]]; then
-  die "Tmux is not installed please install tmux first and then re run this script."
-  # curl -s https://raw.githubusercontent.com/chamunks/clishare/master/tmux-add.sh > /tmp/tmux-add.sh
-  # chmod +x /tmp/tmux-add.sh
-  # /tmp/tmux-add.sh install
-fi
 
 ## Final prep pre execution.
 curl https://raw.githubusercontent.com/chamunks/clishare/master/gotty-run.sh > /tmp/gotty-run.sh
