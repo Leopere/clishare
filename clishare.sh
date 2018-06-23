@@ -1,13 +1,13 @@
 #!/bin/bash
 ## This script has zero fanciness whatsoever so YMMV
-set -e
+# set -e
 
 ## Add fancy die function
 function die () {
     local message=$1
     [ -z "$message" ] && message="Died"
     echo "${BASH_SOURCE[1]}: line ${BASH_LINENO[0]}: ${FUNCNAME[1]}: $message." >&2
-    exit
+    return
 }
 
 ## Check for tmux dependency.
