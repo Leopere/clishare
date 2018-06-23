@@ -9,6 +9,6 @@ This is a painfully dumb script that all it does is launches a `screen` session 
 * two separate terminal/putty sessions open or accessible to you.
 
 ## Usage
-`source <(curl -s https://raw.githubusercontent.com/chamunks/clishare/master/clishare.sh)`
+`/bin/bash <(curl -s https://raw.githubusercontent.com/chamunks/clishare/master/clishare.sh)`
 
 To close the session you must press `CTRL+C` twice on the original terminal/putty window
