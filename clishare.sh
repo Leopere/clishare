@@ -97,7 +97,9 @@ echo "From a separate terminal/putty window."
 tmux new -A -D -d -s gotty /tmp/gotty-run.sh
 
 echo "Your temporary read only commandline sharing should now be available at."
-echo 'http://'$(curl v4.ifconfig.co)':8080'
+echo 'http://'$(curl v4.ifconfig.co)':8080 and the console can be attached by entering:'
+echo 'tmux attach -t clishare'
+echo 'Warning: You may need to refresh the url a few times before the clishare tmux window will exist.'
 echo 'press [ENTER] to terminate clishare...'
 read _
 printf 'cleaning up old screens.'
