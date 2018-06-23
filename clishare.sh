@@ -96,6 +96,8 @@ echo "From a separate terminal/putty window."
 
 tmux new -A -D -d -s gotty /tmp/gotty-run.sh
 
+echo "Your temporary read only commandline sharing should now be available at."
+echo 'http://'$(curl v4.ifconfig.co)':8080'
 echo 'press [ENTER] to terminate clishare...'
 read _
 printf 'cleaning up old screens.'
